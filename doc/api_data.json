@@ -7,7 +7,7 @@
     "name": "getMainData",
     "group": "Data",
     "description": "<p>getMainData</p> ",
-    "filename": "./app/Http/Controllers/DataController.php",
+    "filename": "app/Http/Controllers/DataController.php",
     "groupTitle": "Data",
     "sampleRequest": [
       {
@@ -109,41 +109,13 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/EventsController.php",
+    "filename": "app/Http/Controllers/EventsController.php",
     "groupTitle": "Events",
     "sampleRequest": [
       {
         "url": "/api/v1/events/store"
       }
     ]
-  },
-  {
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "optional": false,
-            "field": "varname1",
-            "description": "<p>No type.</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "varname2",
-            "description": "<p>With type.</p> "
-          }
-        ]
-      }
-    },
-    "type": "",
-    "url": "",
-    "version": "0.0.0",
-    "filename": "./doc/main.js",
-    "group": "F__GoogleDrive_sites_teamplayer_ru_doc_main_js",
-    "groupTitle": "F__GoogleDrive_sites_teamplayer_ru_doc_main_js",
-    "name": ""
   },
   {
     "type": "post",
@@ -186,11 +158,236 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/GalleryController.php",
+    "filename": "app/Http/Controllers/GalleryController.php",
     "groupTitle": "Galery",
     "sampleRequest": [
       {
         "url": "/api/v1/galery/upload"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/v1/leagues/store",
+    "title": "LeagueCreate",
+    "version": "0.1.0",
+    "name": "LeagueCreate",
+    "group": "Leagues",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>datetime</p> ",
+            "optional": false,
+            "field": "date_start",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>datetime</p> ",
+            "optional": false,
+            "field": "date_stop",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": false,
+            "field": "sport_id",
+            "description": "<p>From data pack</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": false,
+            "field": "place_id",
+            "description": "<p>From data pack</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": false,
+            "field": "teams_max",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "name",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": true,
+            "field": "description",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>file</p> ",
+            "optional": true,
+            "field": "image",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": true,
+            "field": "age_min",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": true,
+            "field": "age_max",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": true,
+            "field": "level",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": true,
+            "field": "duration",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "rules",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": false,
+            "field": "registration_cost",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>double</p> ",
+            "optional": false,
+            "field": "lat",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>double</p> ",
+            "optional": false,
+            "field": "lon",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/LeaguesController.php",
+    "groupTitle": "Leagues",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/leagues/store"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/v1/matches/store",
+    "title": "MatchCreate",
+    "version": "0.1.0",
+    "name": "MatchCreate",
+    "group": "Matches",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": false,
+            "field": "type_id",
+            "description": "<p>From data pack, т.е. тип матча, например он часть лиги, или эвента</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": false,
+            "field": "status_id",
+            "description": "<p>From data pack</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": false,
+            "field": "contest_id",
+            "description": "<p>Сюда отправляется id лиги либо Event по базе</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": true,
+            "field": "name",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>datetime</p> ",
+            "optional": true,
+            "field": "date",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": false,
+            "field": "place_id",
+            "description": "<p>From data pack</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>file</p> ",
+            "optional": true,
+            "field": "image",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": false,
+            "field": "public",
+            "description": "<p>0/1</p> "
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/MatchesController.php",
+    "groupTitle": "Matches",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/matches/store"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/v1/nearby",
+    "title": "getData",
+    "version": "0.1.0",
+    "name": "getData",
+    "group": "Nearby",
+    "filename": "app/Http/Controllers/NearbyController.php",
+    "groupTitle": "Nearby",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/nearby"
       }
     ]
   },
@@ -215,7 +412,7 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/NotifyController.php",
+    "filename": "app/Http/Controllers/NotifyController.php",
     "groupTitle": "Notifies",
     "sampleRequest": [
       {
@@ -251,7 +448,8 @@
             "group": "Parameter",
             "type": "<p>string</p> ",
             "allowedValues": [
-              "\"invite_to_event\""
+              "\"invite_to_event\"",
+              "\"invite_to_team\""
             ],
             "optional": false,
             "field": "type",
@@ -267,7 +465,7 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/NotifyController.php",
+    "filename": "app/Http/Controllers/NotifyController.php",
     "groupTitle": "Notifies",
     "sampleRequest": [
       {
@@ -316,7 +514,7 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/NotifyController.php",
+    "filename": "app/Http/Controllers/NotifyController.php",
     "groupTitle": "Notifies",
     "sampleRequest": [
       {
@@ -358,7 +556,7 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/NotifyController.php",
+    "filename": "app/Http/Controllers/NotifyController.php",
     "groupTitle": "Notifies",
     "sampleRequest": [
       {
@@ -387,7 +585,7 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/NotifyController.php",
+    "filename": "app/Http/Controllers/NotifyController.php",
     "groupTitle": "Notifies",
     "sampleRequest": [
       {
@@ -402,7 +600,7 @@
     "version": "0.1.0",
     "name": "MyTeams",
     "group": "Teams",
-    "description": "<p>MyTeams</p> ",
+    "description": "<p>MyTeams метод не доделан до конца.</p> ",
     "header": {
       "fields": {
         "Header": [
@@ -416,7 +614,36 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/TeamsController.php",
+    "filename": "app/Http/Controllers/TeamsController.php",
+    "groupTitle": "Teams",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/teams/my"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/v1/teams/my",
+    "title": "MyTeams",
+    "version": "0.1.0",
+    "name": "MyTeams",
+    "group": "Teams",
+    "description": "<p>MyTeams метод не доделан до конца.</p> ",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "token",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/TeamsController.php",
     "groupTitle": "Teams",
     "sampleRequest": [
       {
@@ -479,7 +706,7 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/TeamsController.php",
+    "filename": "app/Http/Controllers/TeamsController.php",
     "groupTitle": "Teams",
     "sampleRequest": [
       {
@@ -515,7 +742,7 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/UsersController.php",
+    "filename": "app/Http/Controllers/UsersController.php",
     "groupTitle": "Users",
     "sampleRequest": [
       {
@@ -558,7 +785,7 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/UsersController.php",
+    "filename": "app/Http/Controllers/UsersController.php",
     "groupTitle": "Users",
     "sampleRequest": [
       {
@@ -701,7 +928,7 @@
         ]
       }
     },
-    "filename": "./app/Http/Controllers/UsersController.php",
+    "filename": "app/Http/Controllers/UsersController.php",
     "groupTitle": "Users",
     "sampleRequest": [
       {

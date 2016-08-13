@@ -6,6 +6,8 @@ use App\Match;
 use App\Notification;
 use App\Team;
 use App\Team_matches;
+use App\User;
+use App\User_teams;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -102,7 +104,7 @@ class Controller extends BaseController
         $notification = new Notification;
         $notification->type = $type;
         $notification->message = $message;
-        $notification->destionation = $dest;
+        $notification->destination = $dest;
         $notification->param = $param;
         $notification->save();
     }
@@ -154,20 +156,18 @@ class Controller extends BaseController
     }
 
     public function helpReturn($response, $info = false, $message = false) {
+
         $arrayForResponse['response'] = $response;
         if ($info) {
             $arrayForResponse['info'] = $info;
         }
         if ($message) {
             $arrayForResponse['message'] = $message;
-        }else{
-            $arrayForResponse['message'] = 'Resource not found';
         }
         $arrayForResponse['error'] = false;
         if (!$response) {
             $arrayForResponse['error'] = true;
         }
-
         return $arrayForResponse;
     }
 
@@ -178,8 +178,6 @@ class Controller extends BaseController
         }
         if ($message) {
             $arrayForResponse['message'] = $message;
-        }else{
-            $arrayForResponse['message'] = 'Resource not found';
         }
         $arrayForResponse['error'] = false;
         if (!$response) {
@@ -283,6 +281,21 @@ class Controller extends BaseController
         $team_match->match_id = $match_id;
         $team_match->team_id = $team_id;
         $team_match->save();
+    }
+
+    public function userJoinToTeam($user_id,$team_id){
+        User::findorfail($user_id);
+        Team::findorfail($team_id);
+        if(!User_teams::where('user_id',$user_id)->where('team_id',$team_id)->first()){
+            $user_team = new User_teams;
+            $user_team->user_id = $user_id;
+            $user_team->team_id = $team_id;
+            $user_team->save();
+            return true;
+        }else{
+            return 'Dublicate join';
+        }
+
     }
 
 }

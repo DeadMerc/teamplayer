@@ -45,9 +45,11 @@ class EventsController extends Controller
             'place_id'=>'numeric|required|exists:places,id',
             'image'=>'required',
             'public'=>'required',
-            'status_id'=> false
+            'status_id'=> false,
+            'user_id'=>false
         ];
         $request->status_id = Status::where('name','prepare')->first()->id;
+        $request->user_id = $request->user->id;
         $event = $this->fromPostToModel($rules, new Event, $request,'model');
         $match = new Match;
         $match->type_id = $request->type_id;

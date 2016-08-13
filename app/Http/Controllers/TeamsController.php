@@ -47,7 +47,7 @@ class TeamsController extends Controller
      * @apiVersion 0.1.0
      * @apiName MyTeams
      * @apiGroup Teams
-     * @apiDescription MyTeams
+     * @apiDescription MyTeams метод не доделан до конца.
      *
      * @apiHeader {string} token
      *
@@ -60,6 +60,35 @@ class TeamsController extends Controller
                         ->get();
         //dd($data);
         return $this->helpReturn($data);
+    }
+
+    /**
+     * @api {get} /v1/teams/my MyTeams
+     * @apiVersion 0.1.0
+     * @apiName MyTeams
+     * @apiGroup Teams
+     * @apiDescription MyTeams метод не доделан до конца.
+     *
+     * @apiHeader {string} token
+     *
+     *
+     */
+    public function invite(Request $request){
+        $rules = ['user_id'=>'required','team_id'=>'required'];
+        $valid = Validator($request->all(),$rules);
+        if(!$valid->fails()){
+            $user = User::findorfail($request->user_id);
+            $team = Team::findorfail($request->team_id);
+            $this->sendNotification(
+                $request->user_id,
+                'Your was invited to team:'.$team->name,
+                'invite_to_team',
+                $team->id
+            );
+            return $this->helpInfo();
+        }else{
+            return $this->helpError('valid',$valid);
+        }
     }
 
 

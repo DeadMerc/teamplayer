@@ -20,7 +20,7 @@ class NotifyController extends Controller
      *
      */
     public function allNotifies(Request $request) {
-        return $this->helpReturnS(Notification::where('destination', $request->user->id)->first());
+        return $this->helpReturnS(Notification::where('destination', $request->user->id)->get());
     }
 
     /**
@@ -46,7 +46,7 @@ class NotifyController extends Controller
      *
      * @apiHeader {string} token
      *
-     * @apiParam {string="invite_to_event"} type
+     * @apiParam {string="invite_to_event","invite_to_team"} type
      * @apiParam {string} [fresh] Если флаг установлен, то будут приходить уведомления, те которые не видел юзер
      *
      */
@@ -79,23 +79,29 @@ class NotifyController extends Controller
             if ($notify->used == 0) {
                 if ($notify->type == 'invite_to_event') {
                     if ($request->team_id) {
-                        $this->teamJoinToMatch($request->team_id, $notify->param);
+                        $res = $this->teamJoinToMatch($request->team_id, $notify->param);
                         $notify->used = 1;
                         $notify->save();
-                        return $this->helpInfo();
+                        return $this->helpInfo($res);
                     } else {
                         return $this->helpError('Check team_id pls');
                     }
+                } elseif ($notify->type == 'invite_to_team') {
+                    $res = $this->userJoinToTeam($request->user->id, $notify->param);
+                    $notify->used = 1;
+                    $notify->save();
+                    return $this->helpInfo($res);
                 } else {
                     return $this->helpError('Unkown type of notify');
                 }
-            }else{
+            } else {
                 return $this->helpError('This notify used before');
             }
         } else {
             return $this->helpError('It not your notify');
         }
     }
+
     /**
      * @api {post} /v1/notifies/decline/:id NotifyDecline
      * @apiVersion 0.1.0
@@ -116,7 +122,7 @@ class NotifyController extends Controller
                 $notify->used = 1;
                 $notify->save();
                 return $this->helpReturn($notify);
-            }else{
+            } else {
                 return $this->helpError('This notify used before');
             }
         } else {

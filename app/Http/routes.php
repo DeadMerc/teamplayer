@@ -36,6 +36,9 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('users/auth','UsersController@auth');
 
         Route::get('data/{type?}','DataController@getData');
+
+        Route::get('nearby','NearbyController@getData');
+
         Route::group(['middleware' => [\App\Http\Middleware\AuthByToken::class]], function () {
             Route::post('users/update', 'UsersController@update');
 
@@ -44,14 +47,19 @@ Route::group(['prefix' => 'api'], function () {
             Route::post('events/store','EventsController@store');
 
             Route::get('teams/my','TeamsController@myTeams');
-            //Route::post('events/{id}', 'EventsController@update_save');
+            Route::post('teams/invite','TeamsController@invite');
+
             Route::post('gallery/upload','GalleryController@upload');
 
             Route::get('notifies/all','NotifyController@allNotifies');
             Route::get('notifies/fresh/count','NotifyController@countFreshNotifies');
-            Route::get('notifies/{type}/{fresh?}','NotifyController@notifyByType');
             Route::post('notifies/accept/{id}','NotifyController@accept');
             Route::post('notifies/decline/{id}','NotifyController@decline');
+            Route::get('notifies/{type}/{fresh?}','NotifyController@notifyByType');
+
+            Route::post('leagues/store','LeaguesController@store');
+
+            Route::post('matches/store','MatchesController@store');
 
         });
 
