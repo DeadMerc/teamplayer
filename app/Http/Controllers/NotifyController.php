@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Notification;
+use App\Team_league;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -46,7 +47,7 @@ class NotifyController extends Controller
      *
      * @apiHeader {string} token
      *
-     * @apiParam {string="invite_to_event","invite_to_team"} type
+     * @apiParam {string="invite_to_event","invite_to_team","request_to_league"} type
      * @apiParam {string} [fresh] Если флаг установлен, то будут приходить уведомления, те которые не видел юзер
      *
      */
@@ -77,23 +78,26 @@ class NotifyController extends Controller
         $notify = Notification::findorfail($id);
         if ($notify->destination == $request->user->id) {
             if ($notify->used == 0) {
+                $res = [ ];
                 if ($notify->type == 'invite_to_event') {
                     if ($request->team_id) {
                         $res = $this->teamJoinToMatch($request->team_id, $notify->param);
-                        $notify->used = 1;
-                        $notify->save();
-                        return $this->helpInfo($res);
                     } else {
                         return $this->helpError('Check team_id pls');
                     }
                 } elseif ($notify->type == 'invite_to_team') {
                     $res = $this->userJoinToTeam($request->user->id, $notify->param);
-                    $notify->used = 1;
-                    $notify->save();
-                    return $this->helpInfo($res);
+                } elseif ($notify->type == 'request_to_league') {
+                    $team_league = new Team_league;
+                    $team_league->league_id = $notify->param;
+                    $team_league->team_id = $notify->created_by;
+                    $team_league->save();
                 } else {
-                    return $this->helpError('Unkown type of notify');
+                    return $this->helpError('Unknown type of notify');
                 }
+                $notify->used = 1;
+                $notify->save();
+                return $this->helpInfo($res);
             } else {
                 return $this->helpError('This notify used before');
             }

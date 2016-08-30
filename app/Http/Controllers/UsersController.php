@@ -70,11 +70,12 @@ class UsersController extends Controller
      * @apiParam {string} [time_zone]
      * @apiParam {string} [phone]
      * @apiParam {string} [about]
+     * @apiParam {string} [level]
      *
      *
      */
     public function update(Request $request) {
-        $rules = ['about'=>false,'phone'=>false, 'password' => false, 'first_name' => false, 'last_name' => false, 'sport_id' => false, 'age' => false, 'role_id' => false, 'position_id' => false, 'sex' => false, 'date_birth' => false, 'image' => false, 'location' => false, 'android_push_id' => false, 'ios_push_id' => false, 'time_zone' => false, ];
+        $rules = ['level'=>false,'about'=>false,'phone'=>false, 'password' => false, 'first_name' => false, 'last_name' => false, 'sport_id' => false, 'age' => false, 'role_id' => false, 'position_id' => false, 'sex' => false, 'date_birth' => false, 'image' => false, 'location' => false, 'android_push_id' => false, 'ios_push_id' => false, 'time_zone' => false, ];
         $res = $this->fromPostToModel($rules, User::findorfail($request->user->id), $request, true);
         if ($res) {
             return $this->helpReturn(User::with('position')->with('role')->with('sport')->with('teams')->with('teams_created')->findorfail($request->user->id));
@@ -118,5 +119,17 @@ class UsersController extends Controller
      */
     public function authSocial(Request $request){
         $rules = ['first_name'=>'required','social'=>'required'];
+    }
+
+    /**
+     * @api {get} /v1/users/profile Profile
+     * @apiVersion 0.1.0
+     * @apiName Profile
+     * @apiGroup Users
+     * @apiDescription Запрос получения данных для редактирования профиля и для просмотра с экрана nearby
+     *
+     */
+    public function profile(Request $request,$id){
+        return $this->helpReturn(User::with('position')->with('role')->findorfail($id));
     }
 }

@@ -167,6 +167,22 @@ define({ "api": [
     ]
   },
   {
+    "type": "get",
+    "url": "/v1/leagues/:id",
+    "title": "League",
+    "version": "0.1.0",
+    "name": "League",
+    "group": "Leagues",
+    "description": "<p>Просмотр экрана League</p> ",
+    "filename": "app/Http/Controllers/LeaguesController.php",
+    "groupTitle": "Leagues",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/leagues/:id"
+      }
+    ]
+  },
+  {
     "type": "post",
     "url": "/v1/leagues/store",
     "title": "LeagueCreate",
@@ -296,6 +312,22 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "/api/v1/leagues/store"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/v1/leagues/:id/apply",
+    "title": "applyLeague",
+    "version": "0.1.0",
+    "name": "applyLeague",
+    "group": "Leagues",
+    "description": "<p>кнопка apply на экране League</p> ",
+    "filename": "app/Http/Controllers/LeaguesController.php",
+    "groupTitle": "Leagues",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/leagues/:id/apply"
       }
     ]
   },
@@ -449,7 +481,8 @@ define({ "api": [
             "type": "<p>string</p> ",
             "allowedValues": [
               "\"invite_to_event\"",
-              "\"invite_to_team\""
+              "\"invite_to_team\"",
+              "\"request_to_league\""
             ],
             "optional": false,
             "field": "type",
@@ -751,6 +784,22 @@ define({ "api": [
     ]
   },
   {
+    "type": "get",
+    "url": "/v1/users/profile",
+    "title": "Profile",
+    "version": "0.1.0",
+    "name": "Profile",
+    "group": "Users",
+    "description": "<p>Запрос получения данных для редактирования профиля и для просмотра с экрана nearby</p> ",
+    "filename": "app/Http/Controllers/UsersController.php",
+    "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/users/profile"
+      }
+    ]
+  },
+  {
     "type": "post",
     "url": "/v1/users/store",
     "title": "Registration",
@@ -923,6 +972,13 @@ define({ "api": [
             "type": "<p>string</p> ",
             "optional": true,
             "field": "about",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": true,
+            "field": "level",
             "description": ""
           }
         ]

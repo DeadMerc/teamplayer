@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\League;
 use App\Match_type;
+use App\Notification;
 use App\Status;
 use Illuminate\Http\Request;
 
@@ -61,4 +62,37 @@ class LeaguesController extends Controller
         $league = $this->fromPostToModel($rules,new League,$request,'model');
         return $this->helpInfo();
     }
+    /**
+     * @api {get} /v1/leagues/:id League
+     * @apiVersion 0.1.0
+     * @apiName League
+     * @apiGroup Leagues
+     * @apiDescription Просмотр экрана League
+     *
+     */
+    public function get(Request $request,$id){
+        return $this->helpReturn(League::with('matchesComplete','matchesUpcoming')->findorfail($id));
+    }
+    /**
+     * @api {post} /v1/leagues/:id/apply applyLeague
+     * @apiVersion 0.1.0
+     * @apiName applyLeague
+     * @apiGroup Leagues
+     * @apiDescription кнопка apply на экране League
+     *
+     * @apiParam {int} team_id Команда которая хочет вступить в лигу
+     *
+     */
+    public function apply(Request $request,$id){
+        $league = League::findorfail($id);
+        $this->sendNotification(
+            $league->user_id,
+            'Hello, i want to enter your League:'.$league->name,
+            'request_to_league',
+            $league->id,
+            $request->team_id
+        );
+        return $this->helpInfo();
+    }
+
 }

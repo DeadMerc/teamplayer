@@ -35,9 +35,13 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('users/store', 'UsersController@store');
         Route::post('users/auth','UsersController@auth');
 
+        Route::get('users/{id}/profile','UsersController@profile');
+
         Route::get('data/{type?}','DataController@getData');
 
         Route::get('nearby','NearbyController@getData');
+
+        Route::get('leagues/{id}','LeaguesController@get');
 
         Route::group(['middleware' => [\App\Http\Middleware\AuthByToken::class]], function () {
             Route::post('users/update', 'UsersController@update');
@@ -58,6 +62,7 @@ Route::group(['prefix' => 'api'], function () {
             Route::get('notifies/{type}/{fresh?}','NotifyController@notifyByType');
 
             Route::post('leagues/store','LeaguesController@store');
+            Route::get('leagues/{id}/apply','LeaguesController@apply');
 
             Route::post('matches/store','MatchesController@store');
 

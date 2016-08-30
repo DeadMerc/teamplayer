@@ -100,12 +100,13 @@ class Controller extends BaseController
      * @param $type
      * @param $param
      */
-    public function sendNotification($dest,$message,$type,$param = 0){
+    public function sendNotification($dest,$message,$type,$param = 0,$created_by = '1'){
         $notification = new Notification;
         $notification->type = $type;
         $notification->message = $message;
         $notification->destination = $dest;
         $notification->param = $param;
+        $notification->created_by = $created_by;
         $notification->save();
     }
 
